@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+const p = await ctx.newPage();
+await p.route('https://cdn.jsdelivr.net/npm/three@0.160.0/**', route => { const u = new URL(route.request().url()); route.fulfill({ body: fs.readFileSync('/home/claude/kbs/node_modules/three/' + u.pathname.replace('/npm/three@0.160.0/', '')), contentType: 'application/javascript' }); });
+await p.route('https://fonts.googleapis.com/**', route => route.fulfill({ body: '', contentType: 'text/css' }));
+await p.goto('file:///home/claude/kbs/dist/jelajah-kbs-web.local.html'); await p.waitForTimeout(3000);
+await p.evaluate(`document.querySelector('.lnav-cta [data-auth="daftar"]').click()`); await p.evaluate(`document.querySelector('#fill-demo').click()`); await p.evaluate(`document.querySelector('#authform').requestSubmit()`); await p.waitForTimeout(2500);
+console.log(await p.evaluate(`[...document.querySelectorAll('#v-app *')].filter(e => { const r = e.getBoundingClientRect(); return r.right > 392 && r.width > 0 && !e.closest('#pins') && !e.closest('.chips') && !e.closest('.mtabs'); }).slice(0, 12).map(e => (e.id ? '#' + e.id : e.tagName + '.' + e.className) + ' ' + Math.round(e.getBoundingClientRect().left) + '-' + Math.round(e.getBoundingClientRect().right)).join('\\n')`));
+await b.close();

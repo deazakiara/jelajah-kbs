@@ -1,0 +1,6 @@
+{
+  "supabaseUrl": "https://XXXXXXXXXXXXXXXXXXXX.supabase.co",
+  "supabaseAnonKey": "isi-anon-atau-publishable-key",
+  "destination": "kbs",
+  "showDemoAccounts": true
+}

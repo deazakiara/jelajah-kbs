@@ -1,0 +1,124 @@
+
+
+<div id="stage">
+  <aside id="pitch" aria-label="Tentang prototype">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg>
+      <div>
+        <p class="eyebrow">Prototype · Kelompok Gass poll</p>
+        <h1>Jelajah KBS</h1>
+      </div>
+    </div>
+    <p class="lede">Peta 3D interaktif dan pemandu AI untuk Kebun Binatang Surabaya. Pengunjung cukup memindai QR di papan informasi, tanpa instal aplikasi.</p>
+
+    <section class="pcard">
+      <h2>Coba alur demo</h2>
+      <ol class="steps" id="demo-steps">
+        <li><button data-demo="scan"><span>Pindai QR di Gerbang Utama</span><svg class="ico"><use href="#i-chev"/></svg></button></li>
+        <li><button data-demo="komodo"><span>Buka Kompleks Komodo + model 3D</span><svg class="ico"><use href="#i-chev"/></svg></button></li>
+        <li><button data-demo="toilet"><span>Tanya Kobi: toilet terdekat</span><svg class="ico"><use href="#i-chev"/></svg></button></li>
+        <li><button data-demo="plan"><span>Rencanakan 2 jam bersama anak</span><svg class="ico"><use href="#i-chev"/></svg></button></li>
+        <li><button data-demo="night"><span>Nyalakan mode malam</span><svg class="ico"><use href="#i-chev"/></svg></button></li>
+        <li><button data-demo="close"><span>Pengelola menutup Jembatan Cinta, rute menyesuaikan</span><svg class="ico"><use href="#i-chev"/></svg></button></li>
+      </ol>
+    </section>
+
+    <section class="pcard">
+      <h2>KBS dalam angka</h2>
+      <dl class="facts">
+        <div><dt>Berdiri</dt><dd>1916</dd></div>
+        <div><dt>Luas</dt><dd>±15 ha</dd></div>
+        <div><dt>Koleksi</dt><dd>211 spesies</dd></div>
+        <div><dt>Tiket masuk</dt><dd>Rp15.000</dd></div>
+      </dl>
+      <p class="fine">Koleksi 2.236+ satwa (Jakarta Post, Mei 2026). Tiket flat dan non-tunai (metrotv, Apr 2026).</p>
+    </section>
+
+    <section class="pcard">
+      <h2>Rencana build Flutter</h2>
+      <ul class="stack">
+        <li><b>Peta 3D</b> Three.js yang sama, ditanam via <code>webview_flutter</code> + JS bridge (Flutter Web: <code>HtmlElementView</code>).</li>
+        <li><b>Model satwa</b> GLB/USDZ di <code>model_viewer_plus</code>, sekaligus mode AR.</li>
+        <li><b>QR → web dulu</b>: tiap QR membuka URL ber-ID lokasi (<code>app_links</code>), jadi posisi diketahui tanpa GPS.</li>
+        <li><b>Data & dasbor</b> Supabase: zona, fasilitas, jalur, jadwal, riwayat perubahan.</li>
+        <li><b>Kobi</b>: LLM + data destinasi (RAG) lewat edge function, dengan aksi peta.</li>
+      </ul>
+    </section>
+    <p class="fine disclaimer">Posisi fasilitas ilustratif, mengikuti denah kasar. Harga, jadwal, dan status diambil dari sumber publik 2023–2026 dan harus diverifikasi pengelola sebelum dipakai.</p>
+  </aside>
+
+  <div id="device">
+    <div class="island" aria-hidden="true"></div>
+    <div id="app" class="app">
+      <div id="scene"></div>
+      <div id="pins" aria-label="Penanda lokasi"></div>
+
+      <header class="top">
+        <div class="searchwrap">
+          <div class="search">
+            <button class="kobi-mini" id="btn-kobi-top" aria-label="Tanya Kobi"><svg viewBox="0 0 48 48"><use href="#i-kobi"/></svg></button>
+            <label for="q" class="sr">Cari</label>
+            <input id="q" type="search" autocomplete="off" placeholder="Cari satwa, toilet, mushola…">
+            <button class="iconbtn" id="btn-menu" aria-label="Menu"><svg class="ico"><use href="#i-grid"/></svg></button>
+          </div>
+          <div class="results" id="results" hidden></div>
+        </div>
+        <div class="chips" id="chips" role="toolbar" aria-label="Filter kategori"></div>
+        <div class="banner" id="banner" hidden></div>
+        <div class="navcard" id="navcard" hidden></div>
+      </header>
+
+      <div class="fabs">
+        <button class="fab" id="fab-compass" aria-label="Arahkan ke utara"><svg class="ico" id="compass-ico"><use href="#i-compass"/></svg></button>
+        <button class="fab txt" id="fab-mode" aria-label="Ganti tampilan 2D/3D">2D</button>
+        <button class="fab" id="fab-night" aria-label="Mode malam"><svg class="ico"><use href="#i-moon"/></svg></button>
+        <button class="fab" id="fab-locate" aria-label="Ke posisi saya"><svg class="ico"><use href="#i-locate"/></svg></button>
+      </div>
+
+      <button class="locpill" id="locpill" hidden><span class="dotblue"></span><span id="loc-text">Anda di Gerbang Utama</span><svg class="ico sm"><use href="#i-qr"/></svg></button>
+
+      <section class="sheet" id="sheet" aria-live="polite">
+        <div class="handle" id="sheet-handle"><span></span></div>
+        <div class="sc" id="sheet-body"></div>
+      </section>
+
+      <section class="panel" id="panel">
+        <div class="panel-in" id="panel-body"></div>
+      </section>
+
+      <nav class="tabbar" aria-label="Navigasi utama">
+        <button data-tab="peta" class="on"><svg class="ico"><use href="#i-map"/></svg><span>Peta</span></button>
+        <button data-tab="rute"><svg class="ico"><use href="#i-route"/></svg><span>Rute</span></button>
+        <button data-tab="kobi" class="kobi-tab" aria-label="Kobi, pemandu AI"><span class="kobi-btn"><svg viewBox="0 0 48 48"><use href="#i-kobi"/></svg></span><span>Kobi</span></button>
+        <button data-tab="jadwal"><svg class="ico"><use href="#i-calendar"/></svg><span>Jadwal</span></button>
+        <button data-tab="tiket"><svg class="ico"><use href="#i-ticket"/></svg><span>Tiket</span></button>
+      </nav>
+
+      <div class="qr" id="qr">
+        <div class="qr-in">
+          <div class="qr-brand"><svg viewBox="0 0 48 48"><use href="#i-kobi"/></svg><b>Jelajah KBS</b></div>
+          <div class="finder" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="scanline"></span></div>
+          <h2>Pindai QR di papan informasi</h2>
+          <p>Setiap QR menyimpan lokasinya sendiri, jadi peta langsung tahu posisi Anda tanpa GPS.</p>
+          <p class="qr-label">Simulasi pindai:</p>
+          <div class="qr-list" id="qr-list"></div>
+          <button class="linkbtn" id="qr-skip">Lihat peta tanpa memindai</button>
+        </div>
+      </div>
+
+      <div class="menu" id="menu" hidden>
+        <div class="menu-card">
+          <button data-menu="admin"><svg class="ico"><use href="#i-building"/></svg><span><b>Mode pengelola</b><small>Dasbor demo untuk tim KBS</small></span></button>
+          <button data-menu="about"><svg class="ico"><use href="#i-info"/></svg><span><b>Tentang prototype</b><small>Alur demo, data, rencana Flutter</small></span></button>
+          <button data-menu="rescan"><svg class="ico"><use href="#i-qr"/></svg><span><b>Pindai ulang QR</b><small>Ganti posisi Anda</small></span></button>
+        </div>
+      </div>
+      <div class="overlay" id="overlay" hidden></div>
+      <div class="toast" id="toast" role="status"></div>
+    </div>
+  </div>
+
+  <aside id="admin-dock" aria-label="Dasbor pengelola">
+    <div id="admin"></div>
+  </aside>
+</div>

@@ -1,0 +1,189 @@
+
+<div id="mapwrap" class="mapwrap"><div id="scene"></div><div id="pins" aria-label="Penanda lokasi"></div></div>
+
+<!-- ===================== LANDING ===================== -->
+<div id="v-landing" class="view">
+  <header class="lnav">
+    <div class="wrap lnav-in">
+      <a class="logo" href="#top" data-go="landing"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg><span>Jelajah</span><em>KBS</em></a>
+      <nav class="lnav-links" aria-label="Bagian halaman"><a href="#fitur">Fitur</a><a href="#cara">Cara kerja</a></nav>
+      <div class="lnav-cta"><button class="btn ghost" data-auth="masuk">Masuk</button><button class="btn primary" data-auth="daftar">Daftar gratis</button></div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Kebun Binatang Surabaya · sejak 1916</p>
+        <h1>Tahu arah, tahu satwa, tahu toilet terdekat.</h1>
+        <p class="lede">Jelajah KBS adalah peta 3D interaktif dan pemandu AI untuk Kebun Binatang Surabaya. Pindai QR di papan informasi, masuk, lalu temukan satwa, fasilitas, dan rute terbaik sesuai waktumu.</p>
+        <div class="hero-cta"><button class="btn primary lg" data-auth="daftar">Mulai jelajah <svg class="ico"><use href="#i-arrowr"/></svg></button><button class="btn ghost lg" data-auth="masuk">Sudah punya akun? Masuk</button></div>
+        <p class="fine">Gratis untuk pengunjung · Langsung dari browser HP, tanpa instal</p>
+      </div>
+      <div class="hero-map">
+        <div class="slot" id="slot-hero"></div>
+        <span class="live-tag"><i></i>Peta 3D langsung</span>
+        <div class="callout c1"><span class="cic" style="--c:var(--water)"><svg class="ico"><use href="#i-toilet"/></svg></span><span><b>Toilet Plaza Tengah</b><small>1 mnt jalan dari Anda</small></span></div>
+        <div class="callout c2"><svg class="kobi-av" viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg><span><b>Kobi</b><small>"Komodo ada di Kompleks Komodo, 2 menit dari sini."</small></span></div>
+        <div class="callout c3"><span class="cic" style="--c:#ff6a2b"><svg class="ico"><use href="#i-route"/></svg></span><span><b>Rencana 2 jam</b><small>7 zona · ramah stroller</small></span></div>
+      </div>
+    </section>
+
+    <section class="stats wrap" aria-label="KBS dalam angka">
+      <div><b>1916</b><span>tahun berdiri</span></div>
+      <div><b>±15 ha</b><span>luas kawasan</span></div>
+      <div><b>211</b><span>spesies satwa</span></div>
+      <div><b>33</b><span>zona di peta</span></div>
+      <div><b>Rp15.000</b><span>tiket masuk</span></div>
+    </section>
+
+    <section id="fitur" class="features wrap">
+      <div class="f-head">
+        <p class="eyebrow">Fitur</p>
+        <h2>Semua yang dicari pengunjung, dalam satu peta.</h2>
+        <p>Dibuat dari keluhan pengunjung yang paling sering: fasilitas sulit dicari, info tersebar, dan bingung harus ke mana dulu.</p>
+      </div>
+      <ul class="f-list">
+        <li><span class="sign" style="--c:var(--leaf)"><svg class="ico"><use href="#i-cube"/></svg></span><div><h3>Peta 3D diorama</h3><p>33 zona, 28 fasilitas, dan satwa yang bergerak. Bisa diputar seperti miniatur, atau dilihat 2D dari atas seperti peta biasa.</p><span class="snip">Kompleks Komodo · 8 kandang</span></div></li>
+        <li><span class="sign" style="--c:var(--water)"><svg class="ico"><use href="#i-qr"/></svg></span><div><h3>QR = posisi Anda</h3><p>Setiap papan QR menyimpan lokasinya. Begitu dipindai, peta langsung tahu Anda di mana, tanpa GPS.</p><span class="snip">Anda di Gerbang Utama</span></div></li>
+        <li><span class="sign" style="--c:var(--mango-deep)"><svg class="ico"><use href="#i-chat"/></svg></span><div><h3>Kobi, pemandu AI</h3><p>Tanya pakai bahasa sehari-hari: "toilet terdekat?", "jam feeding jerapah?". Jawaban diambil dari data destinasi, lengkap dengan tombol rute.</p><span class="snip">"Toilet terdekat 1 menit jalan kaki."</span></div></li>
+        <li><span class="sign" style="--c:#ff6a2b"><svg class="ico"><use href="#i-route"/></svg></span><div><h3>Rute & rencana kunjungan</h3><p>Susun kunjungan 1 sampai 5 jam sesuai minat. Ada opsi ramah kursi roda dan stroller yang menghindari tangga.</p><span class="snip">2 jam · 7 zona · 810 m</span></div></li>
+        <li><span class="sign" style="--c:var(--coral)"><svg class="ico"><use href="#i-megaphone"/></svg></span><div><h3>Info langsung dari pengelola</h3><p>Wahana tutup atau jalur diperbaiki? Peta dan rute pengunjung ikut berubah saat itu juga.</p><span class="snip">Jembatan Cinta ditutup · rute +60 m</span></div></li>
+        <li><span class="sign" style="--c:var(--plum)"><svg class="ico"><use href="#i-stamp"/></svg></span><div><h3>Paspor satwa</h3><p>Tandai satwa yang sudah kamu lihat. Anak-anak senang mengumpulkan semuanya, dari komodo sampai jalak bali.</p><span class="snip">12 dari 48 satwa</span></div></li>
+      </ul>
+    </section>
+
+    <section id="cara" class="how">
+      <div class="wrap">
+        <p class="eyebrow">Cara kerja</p>
+        <h2>Tiga langkah dari gerbang ke kandang komodo.</h2>
+        <ol class="how-steps">
+          <li><span class="stopn">1</span><h3>Pindai QR</h3><p>Di papan informasi dekat pintu masuk dan titik-titik utama.</p></li>
+          <li><span class="stopn">2</span><h3>Masuk atau daftar</h3><p>Sekali saja. Favorit, rencana, dan paspor satwamu tersimpan.</p></li>
+          <li><span class="stopn">3</span><h3>Jelajahi</h3><p>Ikuti rute, tanya Kobi, dan cek jadwal feeding hari ini.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="endcta wrap">
+      <h2>Siap ke KBS hari ini?</h2>
+      <p>Buka 08.00–16.00 WIB setiap hari. Tiket Rp15.000, non-tunai.</p>
+      <button class="btn primary lg" data-auth="daftar">Buat akun gratis</button>
+    </section>
+  </main>
+
+  <footer class="lfoot">
+    <div class="wrap lfoot-in">
+      <div><a class="logo light" href="#top"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg><span>Jelajah</span><em>KBS</em></a><p>Prototype oleh Kelompok Gass poll. Data dari sumber publik 2023–2026 dan perlu diverifikasi pengelola.</p></div>
+      <div><h4>Kebun Binatang Surabaya</h4><p>Jl. Setail No. 1, Darmo, Wonokromo, Surabaya 60241</p><p>(031) 5678703 · @surabayazoo</p></div>
+      <div><h4>Jelajah</h4><p><a href="#fitur">Fitur</a> · <a href="#cara">Cara kerja</a></p></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== AUTH ===================== -->
+<div id="v-auth" class="view" hidden>
+  <div class="auth">
+    <aside class="auth-brand">
+      <a class="logo light" href="#top" data-go="landing"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg><span>Jelajah</span><em>KBS</em></a>
+      <div class="auth-hello">
+        <svg class="auth-kobi" viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg>
+        <p class="bubble" id="auth-bubble">Halo! Masuk dulu ya, biar rencana, favorit, dan paspor satwamu tersimpan.</p>
+      </div>
+      <ul class="ticks light">
+        <li><svg class="ico"><use href="#i-check"/></svg>Peta 3D 33 zona & 28 fasilitas</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Kobi menjawab dalam Bahasa Indonesia</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Rute ramah kursi roda & stroller</li>
+      </ul>
+    </aside>
+    <main class="auth-main">
+      <button class="linkback" data-go="landing"><svg class="ico sm"><use href="#i-back"/></svg>Kembali ke beranda</button>
+      <div class="auth-card">
+        <h1 id="auth-title">Masuk ke Jelajah</h1>
+        <p class="auth-sub" id="auth-sub">Belum punya akun? <button class="link" data-mode="daftar">Daftar gratis</button></p>
+        <div id="auth-form"></div>
+        <div class="demo-box" id="demo-box"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===================== VISITOR WEB APP ===================== -->
+<div id="v-app" class="view" hidden>
+  <header class="wnav">
+    <a class="logo" href="#top" data-tab="home"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg><span>Jelajah</span><em>KBS</em></a>
+    <div class="wsearch">
+      <svg class="ico"><use href="#i-search"/></svg>
+      <label for="q" class="sr">Cari</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Cari satwa, toilet, mushola…">
+      <kbd>/</kbd>
+      <div class="results" id="results" hidden></div>
+    </div>
+    <nav class="wtabs" aria-label="Menu utama">
+      <button data-tab="home" class="on"><svg class="ico"><use href="#i-map"/></svg><span>Jelajah</span></button>
+      <button data-tab="plan"><svg class="ico"><use href="#i-route"/></svg><span>Rencana</span></button>
+      <button data-tab="jadwal"><svg class="ico"><use href="#i-calendar"/></svg><span>Jadwal</span></button>
+      <button data-tab="tiket"><svg class="ico"><use href="#i-ticket"/></svg><span>Tiket</span></button>
+    </nav>
+    <div class="wact">
+      <button class="btn mango kobi-btn" id="btn-kobi"><svg viewBox="0 0 48 48" class="kav" aria-hidden="true"><use href="#i-kobi"/></svg><span>Tanya Kobi</span></button>
+      <button class="avatar" id="btn-avatar" aria-haspopup="menu" aria-label="Menu akun"></button>
+    </div>
+  </header>
+  <div class="wbody">
+    <aside class="wside" id="side" aria-live="polite"></aside>
+    <section class="wmap" id="slot-app">
+      <div class="map-top">
+        <div class="chips" id="chips" role="toolbar" aria-label="Filter kategori"></div>
+      </div>
+      <div class="banner" id="banner" hidden></div>
+      <div class="mapctl">
+        <button id="z-in" aria-label="Perbesar"><svg class="ico"><use href="#i-plus"/></svg></button>
+        <button id="z-out" aria-label="Perkecil"><svg class="ico"><use href="#i-minus"/></svg></button>
+        <span class="sep"></span>
+        <button id="c-north" aria-label="Arahkan ke utara"><svg class="ico" id="compass-ico"><use href="#i-compass"/></svg></button>
+        <button id="c-mode" class="txt" aria-label="Ganti 2D/3D">2D</button>
+        <button id="c-night" aria-label="Mode malam"><svg class="ico"><use href="#i-moon"/></svg></button>
+        <button id="c-loc" aria-label="Ke posisi saya"><svg class="ico"><use href="#i-locate"/></svg></button>
+      </div>
+      <div class="legend" aria-hidden="true"><span><i style="--c:var(--leaf)"></i>Satwa</span><span><i style="--c:var(--mango-deep)"></i>Wahana</span><span><i style="--c:var(--water)"></i>Layanan</span><span><i style="--c:var(--stone)"></i>Area staf</span><span><i class="you"></i>Anda</span></div>
+      <aside class="kobi-drawer" id="kobi" aria-label="Kobi, pemandu AI" hidden></aside>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== ADMIN CONSOLE ===================== -->
+<div id="v-admin" class="view" hidden>
+  <aside class="asb">
+    <a class="logo light" href="#top"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-kobi"/></svg><span>Jelajah</span><em>Konsol</em></a>
+    <div class="dest"><small>Destinasi</small><b>Kebun Binatang Surabaya</b><span>Paket Standard · Rp1.000.000/bulan</span></div>
+    <nav class="anav" aria-label="Menu pengelola">
+      <button data-page="ringkasan" class="on"><svg class="ico"><use href="#i-chart"/></svg>Ringkasan</button>
+      <button data-page="peta"><svg class="ico"><use href="#i-map"/></svg>Peta & status</button>
+      <button data-page="lokasi"><svg class="ico"><use href="#i-list"/></svg>Data lokasi</button>
+      <button data-page="jadwal"><svg class="ico"><use href="#i-calendar"/></svg>Jadwal</button>
+      <button data-page="pengumuman"><svg class="ico"><use href="#i-megaphone"/></svg>Pengumuman</button>
+    </nav>
+    <div class="asb-foot">
+      <button class="btn ghost-light" id="as-visitor"><svg class="ico sm"><use href="#i-eye"/></svg>Lihat sebagai pengunjung</button>
+      <div class="me"><span class="avatar sm" id="adm-avatar"></span><span><b id="adm-name"></b><small id="adm-email"></small></span><button class="iconbtn" id="adm-logout" aria-label="Keluar"><svg class="ico"><use href="#i-logout"/></svg></button></div>
+    </div>
+  </aside>
+  <div class="amain">
+    <header class="atop"><div><h1 id="atitle">Ringkasan</h1><p id="asub"></p></div><div class="atop-r"><span class="clock" id="aclock"></span></div></header>
+    <div class="acontent" id="acontent"></div>
+  </div>
+</div>
+
+<!-- ===================== SHARED OVERLAYS ===================== -->
+<div class="modal" id="qr-modal" hidden>
+  <div class="modal-card qr-card" role="dialog" aria-modal="true" aria-labelledby="qr-title">
+    <button class="mclose" data-close aria-label="Tutup"><svg class="ico"><use href="#i-x"/></svg></button>
+    <div class="finder" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="scanline"></span></div>
+    <h2 id="qr-title">Pindai QR di papan informasi</h2>
+    <p>Setiap QR menyimpan lokasinya sendiri. Pilih titik untuk mensimulasikan pindai.</p>
+    <div class="qr-list" id="qr-list"></div>
+  </div>
+</div>
+<div class="menu" id="acct-menu" role="menu" hidden></div>
+<div class="toast" id="toast" role="status"></div>

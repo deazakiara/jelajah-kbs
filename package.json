@@ -1,0 +1,27 @@
+{
+  "name": "jelajah-kbs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jelajah KBS: peta 3D interaktif + pemandu AI Kebun Binatang Surabaya",
+  "scripts": {
+    "deploy": "node deploy.mjs",
+    "deploy:https": "node deploy.mjs --https",
+    "preview": "node tools/serve.mjs",
+    "test": "node tests/planner.test.mjs && node deploy.mjs && node tests/smoke.mjs && node tests/smoke.mjs --mock",
+    "seed": "node tools/gen-seed.mjs",
+    "build:web": "node build.mjs web",
+    "build:hp": "node build.mjs",
+    "test:planner": "node tests/planner.test.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "three": "0.160.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.1.1",
+    "playwright": "^1.56.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
