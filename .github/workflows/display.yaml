@@ -90,5 +90,5 @@ jobs:
             set -eu
             mkdir -p "$DEPLOY_PATH"
             find "$DEPLOY_PATH" -mindepth 1 -maxdepth 1 ! -name '.well-known' -exec rm -rf -- {} +
-            tar -xzf /tmp/jelajah-kbs-deploy.tar.gz -C "$DEPLOY_PATH"
+            tar --no-same-owner --no-same-permissions --no-overwrite-dir -xzf /tmp/jelajah-kbs-deploy.tar.gz -C "$DEPLOY_PATH"
             rm -f /tmp/jelajah-kbs-deploy.tar.gz
