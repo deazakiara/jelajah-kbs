@@ -79,16 +79,26 @@ jobs:
       - name: Extract website on CloudPanel
         uses: appleboy/ssh-action@v1.2.5
         env:
-          DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/home/jelajahkbs/htdocs/jelajahkbs.cloudcomp.my.id' }}
+          # Kosongkan vars.DEPLOY_PATH agar folder situs dicari otomatis: /home/*/htdocs/<SITE_DOMAIN>
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+          SITE_DOMAIN: kbs.cloudcomp.my.id
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT || '22' }}
-          envs: DEPLOY_PATH
+          envs: DEPLOY_PATH,SITE_DOMAIN
           script: |
             set -eu
-            mkdir -p "$DEPLOY_PATH"
+            if [ -z "$DEPLOY_PATH" ]; then
+              for d in /home/*/htdocs/"$SITE_DOMAIN"; do
+                if [ -d "$d" ]; then DEPLOY_PATH="$d"; break; fi
+              done
+            fi
+            if [ -z "$DEPLOY_PATH" ] || [ ! -d "$DEPLOY_PATH" ] || [ ! -w "$DEPLOY_PATH" ]; then
+              echo "STOP: folder situs $SITE_DOMAIN tidak ditemukan / tidak bisa ditulis oleh user $(whoami)"; exit 1
+            fi
+            echo "Deploy ke: $DEPLOY_PATH"
             find "$DEPLOY_PATH" -mindepth 1 -maxdepth 1 ! -name '.well-known' -exec rm -rf -- {} +
             tar --no-same-owner --no-same-permissions --no-overwrite-dir -xzf /tmp/jelajah-kbs-deploy.tar.gz -C "$DEPLOY_PATH"
             rm -f /tmp/jelajah-kbs-deploy.tar.gz
