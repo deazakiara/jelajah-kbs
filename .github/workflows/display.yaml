@@ -1,4 +1,4 @@
-name: Test and deploy Jelajah KBS
+name: Jelajah KBS CI/CD Deployment
 
 on:
   push:
@@ -9,8 +9,8 @@ permissions:
   contents: read
 
 jobs:
-  test-and-deploy:
-    name: Test, build, and deploy static site
+  tests-build:
+    name: Run Tests & Build Assets
     runs-on: ubuntu-latest
 
     steps:
@@ -40,8 +40,29 @@ jobs:
           SUPABASE_URL: ${{ vars.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
 
-      - name: Deploy to CloudPanel over SSH
+      - name: Upload production website
         if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: jelajah-kbs-deploy
+          path: dist/deploy/
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Live Hosting
+    needs: tests-build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download production website
+        uses: actions/download-artifact@v4
+        with:
+          name: jelajah-kbs-deploy
+          path: dist/deploy/
+
+      - name: Deploy to CloudPanel over SSH
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
