@@ -71,7 +71,7 @@ ${[].concat(ui).map(r).join('\n')}
 </html>
 `;
 }
-const DOMAIN = (ARGS.find(a => !a.startsWith('--')) || process.env.SITE_URL || 'https://jelajahkbs.cloudcomp.my.id').replace(/\/$/, '');
+const DOMAIN = (ARGS.find(a => !a.startsWith('--')) || process.env.SITE_URL || 'https://chelsea.cloudcomp.my.id').replace(/\/$/, '');
 fs.writeFileSync(OUT + '/index.html', page({ head: r('head-web.html'), css: r('web.css'), body: r('icons.html') + r('web.html'), ui: ['backend.js', 'webui.js'], prefix: './', title: 'Jelajah KBS', desc: 'Peta 3D interaktif dan pemandu AI untuk Kebun Binatang Surabaya.', url: DOMAIN + '/', extraHead: '<script defer src="./config.js"></script>\n<script defer src="./vendor/supabase/supabase.js"></script>' }));
 fs.writeFileSync(OUT + '/hp/index.html', page({ head: r('head.html'), css: r('style.css'), body: r('icons.html') + r('body.html'), ui: 'ui.js', prefix: '../', title: 'Jelajah KBS · Versi HP', desc: 'Prototype aplikasi HP Jelajah KBS.', url: DOMAIN + '/hp/' }));
 fs.writeFileSync(OUT + '/_headers', `/vendor/*
