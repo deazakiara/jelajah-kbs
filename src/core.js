@@ -22,7 +22,7 @@ const POI_T = {
   foto: { label: 'Spot foto', icon: 'camera', color: 'var(--plum)' }, loket: { label: 'Loket tiket', icon: 'ticket', color: 'var(--primary)' },
 };
 const IUCN = { CR: 'Kritis', EN: 'Genting', VU: 'Rentan', NT: 'Hampir terancam', LC: 'Risiko rendah', DD: 'Kurang data', DOM: 'Domestik' };
-const PIN_NAME = { gerbang: 'Pintu Utama', selatan: 'Pintu Selatan', pos12: 'Parkir · Pos 12', aviary: 'Aviary', aves: 'Rumah Burung', menara: 'Menara', perahu: 'Perahu & Bekantan', aoudad: 'Pulau Siamang', panggung: 'Animal Story', unta: 'Tunggang Unta', komodo: 'Komodo', reptil: 'Reptil & Buaya', kucing: 'Kucing Besar', primata: 'Primata', gajah: 'Gajah', gokart: 'Go-Kart', sabana: 'Sabana Afrika', kudanil: 'Kuda Nil', herbivora: 'Rusa & Banteng', beruang: 'Beruang Madu', konservasi: 'Konservasi', nursery: 'Nursery', karantina: 'Karantina', masjid: 'Masjid', aquanoctudio: 'Aquanoctudio', direksi: 'Direksi', sekretariat: 'Sekretariat', kidszoo: 'Kids Zoo', jamur: 'Rumah Jamur', rainbow: 'Rainbow Park', giz: 'GIZ Park', plaza: 'Plaza Tengah', kolam: 'Kolam Anak' };
+const PIN_NAME = { gerbang: 'Pintu Utama', selatan: 'Pintu Selatan', pos12: 'Parkir · Pos 12', aviary: 'Aviary', aves: 'Rumah Burung', menara: 'Menara', perahu: 'Perahu & Bekantan', aoudad: 'Pulau Siamang', panggung: 'Animal Story', unta: 'Tunggang Unta', komodo: 'Komodo', reptil: 'Reptil & Buaya', kucing: 'Harimau', primata: 'Primata', gajah: 'Gajah', gokart: 'Go-Kart', sabana: 'Sabana Afrika', kudanil: 'Kuda Nil', herbivora: 'Rusa & Banteng', beruang: 'Beruang Madu', konservasi: 'Konservasi', nursery: 'Nursery', karantina: 'Karantina', masjid: 'Masjid', aquanoctudio: 'Aquanoctudio', direksi: 'Direksi', sekretariat: 'Sekretariat', kidszoo: 'Kids Zoo', jamur: 'Rumah Jamur', rainbow: 'Rainbow Park', giz: 'GIZ Park', plaza: 'Plaza Tengah', kolam: 'Kolam Anak' };
 const PIN_Y = { menara: 8.6, aviary: 4.6, gerbang: 4.8, aquanoctudio: 5.6, masjid: 5.2, giz: 4.8, panggung: 3.6, jamur: 3.9, sabana: 3.6, gajah: 3.2, primata: 3.4, perahu: 3.2, aoudad: 3.4, selatan: 3.4, kidszoo: 3.2, rainbow: 3.6 };
 const PRIO = new Set(['komodo', 'perahu', 'gajah', 'sabana', 'kucing', 'aquanoctudio', 'kidszoo', 'aviary', 'gerbang', 'primata', 'jamur', 'selatan']);
 const FILTERS = [
@@ -88,7 +88,7 @@ function nearestOf(type, fromNode) { const { D } = fromNode ? fromNode : fromSta
 
 
 // ---------- planner ----------
-const INTERESTS = [['langka', 'Satwa langka', 'shield'], ['anak', 'Bersama anak', 'users'], ['reptil', 'Komodo & reptil', 'paw'], ['burung', 'Burung', 'bird'], ['primata', 'Primata', 'paw'], ['kucing', 'Kucing besar', 'paw'], ['wahana', 'Wahana & bermain', 'ride'], ['foto', 'Spot foto', 'camera'], ['edukasi', 'Edukasi', 'sparkle'], ['air', 'Air & perahu', 'boat']];
+const INTERESTS = [['langka', 'Satwa langka', 'shield'], ['anak', 'Bersama anak', 'users'], ['reptil', 'Komodo & reptil', 'paw'], ['burung', 'Burung', 'bird'], ['primata', 'Primata', 'paw'], ['kucing', 'Harimau', 'paw'], ['wahana', 'Wahana & bermain', 'ride'], ['foto', 'Spot foto', 'camera'], ['edukasi', 'Edukasi', 'sparkle'], ['air', 'Air & perahu', 'boat']];
 // plan() & perencana itinerary ada di planner.js
 
 // ---------- Kobi: data, aturan, parser, jawaban lokal ----------

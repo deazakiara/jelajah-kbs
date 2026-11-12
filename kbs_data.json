@@ -520,7 +520,7 @@
   },
   {
    "id": "kucing",
-   "name": "Kucing Besar",
+   "name": "Harimau",
    "cat": "satwa",
    "icon": "paw",
    "pos": [
@@ -545,7 +545,7 @@
     "singa"
    ],
    "desc": "Singa Afrika, harimau Sumatra, harimau Benggala, dan harimau putih. Anak singa Bima dan Dona (lahir April 2023) adalah kelahiran singa pertama KBS dalam 18 tahun.",
-   "tips": "Kucing besar lebih aktif pagi hari sebelum udara panas."
+   "tips": "Harimau lebih aktif pagi hari sebelum udara panas."
   },
   {
    "id": "primata",
@@ -1571,7 +1571,7 @@
   {
    "id": "wc-kucing",
    "type": "toilet",
-   "name": "Toilet Kucing Besar",
+   "name": "Toilet Harimau",
    "pos": [
     -34,
     -8

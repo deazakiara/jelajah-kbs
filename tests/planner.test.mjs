@@ -15,7 +15,7 @@ console.log('Perencana itinerary');
 let t0 = Date.now();
 const a = planItinerary({ ...base, group: ['dewasa'], minutes: 120, cats: ['kucing'] });
 const ms = Date.now() - t0;
-ok('dewasa 2 jam: ada Kucing Besar', ids(a).includes('kucing'), show(a));
+ok('dewasa 2 jam: ada Harimau', ids(a).includes('kucing'), show(a));
 ok('dewasa 2 jam: muat dalam 120 menit', a.end - a.start <= 120, `${a.end - a.start} mnt`);
 ok('dewasa: wahana khusus anak tidak masuk', !ids(a).some(id => KIDS_RIDES.includes(id)));
 ok('alasan pengecualian tercatat', a.excluded.some(x => x.id === 'gokart' && /usia 6–15/.test(x.why)), a.excluded.map(x => x.id + ':' + x.why).slice(0, 3).join(' | '));
