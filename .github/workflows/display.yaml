@@ -40,12 +40,16 @@ jobs:
           SUPABASE_URL: ${{ vars.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
 
+      - name: Package production website
+        if: github.event_name == 'push'
+        run: tar -czf jelajah-kbs-deploy.tar.gz -C dist/deploy .
+
       - name: Upload production website
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: jelajah-kbs-deploy
-          path: dist/deploy/
+          path: jelajah-kbs-deploy.tar.gz
           if-no-files-found: error
           retention-days: 1
 
@@ -60,34 +64,31 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: jelajah-kbs-deploy
-          path: dist/deploy/
+          path: .
 
-      - name: Deploy to CloudPanel over SSH
+      - name: Upload website archive to CloudPanel
+        uses: appleboy/scp-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 8000
+          source: jelajah-kbs-deploy.tar.gz
+          target: /tmp
+
+      - name: Extract website on CloudPanel
+        uses: appleboy/ssh-action@v1.2.5
         env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
-          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
-          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
-        run: |
-          set -eu
-          for name in SSH_HOST SSH_USER SSH_PRIVATE_KEY SSH_KNOWN_HOSTS DEPLOY_PATH; do
-            if [ -z "${!name}" ]; then
-              echo "Required GitHub secret is missing: $name" >&2
-              exit 1
-            fi
-          done
-
-          mkdir -p "$HOME/.ssh"
-          chmod 700 "$HOME/.ssh"
-          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/known_hosts"
-
-          eval "$(ssh-agent -s)"
-          trap 'ssh-agent -k' EXIT
-          printf '%s\n' "$SSH_PRIVATE_KEY" | ssh-add -
-
-          rsync -az --delete --exclude='/.well-known/' \
-            -e "ssh -p $SSH_PORT" \
-            dist/deploy/ "$SSH_USER@$SSH_HOST:${DEPLOY_PATH%/}/"
+          DEPLOY_PATH: /home/jelajahkbs/htdocs/jelajahkbs.cloudcomp.my.id/public
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 8000
+          envs: DEPLOY_PATH
+          script: |
+            set -eu
+            mkdir -p "$DEPLOY_PATH"
+            find "$DEPLOY_PATH" -mindepth 1 -maxdepth 1 ! -name '.well-known' -exec rm -rf -- {} +
+            tar -xzf /tmp/jelajah-kbs-deploy.tar.gz -C "$DEPLOY_PATH"
+            rm -f /tmp/jelajah-kbs-deploy.tar.gz
