@@ -79,7 +79,7 @@ jobs:
       - name: Extract website on CloudPanel
         uses: appleboy/ssh-action@v1.2.5
         env:
-          DEPLOY_PATH: /home/jelajahkbs/htdocs/jelajahkbs.cloudcomp.my.id/public
+          DEPLOY_PATH: /home/jelajahkbs/htdocs/jelajahkbs.cloudcomp.my.id
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
