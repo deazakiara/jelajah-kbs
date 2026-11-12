@@ -72,7 +72,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 8000
+          port: ${{ secrets.SSH_PORT || '22' }}
           source: jelajah-kbs-deploy.tar.gz
           target: /tmp
 
@@ -84,7 +84,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 8000
+          port: ${{ secrets.SSH_PORT || '22' }}
           envs: DEPLOY_PATH
           script: |
             set -eu
