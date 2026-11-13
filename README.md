@@ -4,17 +4,16 @@ Peta 3D interaktif + pemandu AI "Kobi" untuk Kebun Binatang Surabaya. Pengunjung
 
 Prototype project team 5
 
-- Website: https://chelsea.cloudcomp.my.id
-- Tanpa backend pun bisa dicoba (mode demo): `npm install && npm run deploy && npm run preview`
+- Website: https://kbs.cloudcomp.my.id/
+- Tanpa backend tetap bisa dicoba (mode demo): `npm install && npm run deploy && npm run preview`
 
 ## Tim
 
-| Nama | NIM | Peran |
+| Nama | NIM | PIC |
 |---|---|---|
-| _isi nama_ | _isi NIM_ | _mis. frontend & peta 3D_ |
-| _isi nama_ | _isi NIM_ | _mis. backend Supabase & CI/CD_ |
-| _isi nama_ | _isi NIM_ | _mis. UI/UX & Figma_ |
-| _isi nama_ | _isi NIM_ | _mis. riset lapangan & data KBS_ |
+| Matahari Dea Zakiara | 0706012410034 | _frontend & peta 3D_ |
+| Febby Rudhieta Dharmawan | 076012410002 | _backend Supabase & CI/CD_ |
+| Chelsea Deanna Husin | 0706012410030 | _UI/UX & Figma_ |
 
 ## Progress fitur (per 12 November 2026)
 
@@ -49,9 +48,9 @@ Prototype project team 5
 
 | Item | Status | Catatan |
 |---|---|---|
-| Backend Supabase | Sebagian | Skema, RLS, seed, edge function Kobi selesai & teruji; migrasi ke project production berjalan |
-| CI/CD GitHub Actions | Sebagian | 4 workflow siap (lihat bagian CI/CD); tinggal isi Secrets & setup server |
-| Pengujian otomatis | Selesai | 33 unit test itinerary, smoke test Playwright 2 mode, uji RLS |
+| Backend Supabase | Sebagian | Skema, RLS, seed, dan Edge Function Kobi tersedia di repo; status deploy ke project production perlu dikonfirmasi di Supabase |
+| CI/CD GitHub Actions | Sebagian | Deploy website otomatis sudah berjalan; deploy migrasi dan Edge Function Supabase belum masuk workflow |
+| Pengujian otomatis | Selesai | Tes planner itinerary dan smoke test Playwright dalam mode demo serta mock Supabase |
 | Wireframe lo-fi & prototype login (Figma) | Selesai | |
 | Skenario usability test | Selesai | Pertanyaan sudah disusun |
 | Video demo (Bahasa Inggris) | Selesai | |
@@ -59,14 +58,20 @@ Prototype project team 5
 
 ## CI/CD
 
-| Workflow | Jalan saat | Isi |
-|---|---|---|
-| `test.yml` (CI) | setiap push ke `main` & pull request | unit test itinerary → build → smoke test Playwright (mode demo + mock Supabase) |
-| `deploy-web.yml` (CD) | push ke `main` yang mengubah `src/`, `assets/`, dll. | unit test → build → rsync lewat SSH ke CloudPanel → cek `config.js` HTTP 200 |
-| `supabase.yml` (CD) | push ke `main` yang mengubah `supabase/` | `supabase db push` (migrasi) → set secrets → deploy edge function `kobi` |
-| `keepalive.yml` | tiap 3 hari (cron) | ping Supabase supaya project gratis tidak dijeda |
+Per 13 November 2026, repository memiliki **1 file workflow aktif** (`.github/workflows/display.yaml`) dan sudah tercatat **15 workflow run**. Istilah *workflow* adalah definisi pipeline; *run* adalah satu kali pipeline dijalankan. [Run #15 berhasil](https://github.com/deazakiara/jelajah-kbs/actions/runs/43345409499).
 
-Secrets & variables yang dibutuhkan ada di `docs/DEPLOY.md`.
+| Workflow | Pemicu | Yang dijalankan |
+|---|---|---|
+| `Jelajah KBS CI/CD Deployment` (`display.yaml`) | Pull request atau push ke `main` | Pull request menjalankan tes. Push ke `main` menjalankan tes, build produksi, membuat artifact, lalu deploy website ke CloudPanel. |
+
+Pipeline menggunakan Node.js 22 dan Chromium untuk tes Playwright. `npm test` menjalankan tes planner itinerary, build, dan smoke test dalam mode demo serta mock Supabase. Deploy website mengirim archive menggunakan SCP, lalu mengekstraknya di server lewat SSH.
+
+**Batas cakupan:** workflow ini hanya men-deploy website. Migrasi database dan Edge Function Kobi belum otomatis dijalankan oleh workflow aktif. Konfigurasi yang dipakai workflow:
+
+- **Secrets:** `SSH_HOST`, `SSH_USER`, `SSH_PASSWORD`; `SSH_PORT` opsional.
+- **Variables:** `SITE_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`; `DEPLOY_PATH` opsional jika lokasi situs tidak ditemukan otomatis.
+
+Untuk konfigurasi server, lihat [`docs/DEPLOY.md`](docs/DEPLOY.md), tetapi perhatikan panduannya masih memuat nama workflow, domain, serta metode SSH/rsync yang berbeda dari workflow aktif ini.
 
 ## Teknologi
 
@@ -74,8 +79,8 @@ Secrets & variables yang dibutuhkan ada di `docs/DEPLOY.md`.
 - **Backend**: Supabase (Auth, Postgres + Row Level Security, Realtime, Edge Function untuk Kobi).
 - **AI**: Kobi lewat Supabase Edge Function (Gemini 2.5 Flash atau Claude Haiku); tanpa API key tetap menjawab dari data lokal.
 - **Algoritma**: Dijkstra untuk rute jalan kaki; Orienteering Problem with Time Windows + Iterated Local Search untuk itinerary.
-- **Hosting**: file statis di VPS CloudPanel (Nginx), domain Domainesia, SSL Let's Encrypt; deploy otomatis lewat GitHub Actions + SSH.
-- **Testing**: Playwright (smoke test), Node test runner (itinerary), PGlite (aturan akses database).
+- **Hosting**: file statis di VPS CloudPanel (Nginx), domain `kbs.cloudcomp.my.id` dengan SSL; deploy otomatis lewat GitHub Actions (SCP/SSH).
+- **Testing**: tes planner itinerary dan Playwright smoke test (mode demo + mock Supabase). Belum ada tes integrasi otomatis untuk kebijakan RLS database.
 - **Desain**: Figma (wireframe lo-fi, prototype).
 - Tanpa konfigurasi Supabase, website otomatis berjalan dalam **mode demo** (semua data di browser).
 
@@ -115,7 +120,7 @@ src/            kode aplikasi
 assets/models/  25 model satwa GLB
 assets/qr/      kartu QR siap cetak
 supabase/       migrasi database, seed, edge function kobi, config CLI
-.github/workflows/  deploy website, deploy Supabase, tes, keep-alive
+.github/workflows/  CI/CD website (tes, build, deploy)
 tests/          uji asap + mock supabase-js
 tools/          generator seed, server preview, skrip ekspor/validasi
 docs/           panduan deploy, Supabase, roadmap, blueprint Flutter
