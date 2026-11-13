@@ -8,8 +8,29 @@ Prototype lomba oleh Kelompok Gass poll · 2026.
 
 - **Frontend**: HTML/CSS/JS tanpa framework, peta 3D dengan Three.js r160 (diorama procedural + 25 model GLB).
 - **Backend**: Supabase (Auth, Postgres + Row Level Security, Realtime, Edge Function untuk Kobi).
-- **Hosting**: file statis di VPS CloudPanel (Nginx), deploy otomatis lewat GitHub Actions + SSH.
+- **Hosting**: file statis di VPS CloudPanel (Nginx), deploy otomatis lewat GitHub Actions melalui SCP/SSH.
 - Tanpa konfigurasi Supabase, website otomatis berjalan dalam **mode demo** (semua data di browser).
+
+## Progress saat ini
+
+Versi prototype web sudah mencakup:
+
+- Peta 3D dengan 33 zona, 28 fasilitas, data satwa, dan model GLB; posisi awal dapat dibuka dari QR.
+- Pencarian satwa/fasilitas, rute jalan kaki, itinerary berdasarkan durasi dan kebutuhan rombongan, serta Kobi dengan jawaban lokal dan opsi AI.
+- Akun pengunjung dan konsol pengelola untuk status zona/jalur, verifikasi lokasi, jadwal, pengumuman realtime, dan data ringkasan.
+- Mode demo lokal dan integrasi Supabase untuk autentikasi, database, realtime, dan Edge Function Kobi.
+
+### CI/CD
+
+Workflow aktif ada di [`.github/workflows/display.yaml`](.github/workflows/display.yaml):
+
+- Setiap pull request menjalankan tes.
+- Push ke `main` menjalankan tes, build produksi, mengemas artifact, lalu deploy ke CloudPanel melalui SCP/SSH.
+- Tes mencakup perencana itinerary dan uji asap Playwright dalam mode demo serta mock Supabase.
+
+CI/CD sudah berjalan; [run terakhir yang diverifikasi](https://github.com/deazakiara/jelajah-kbs/actions/runs/43263144435) berhasil pada tahap tes/build dan deploy. Workflow ini **belum** menjalankan migrasi database atau deploy Edge Function Supabase secara otomatis.
+
+Prototype belum berarti siap untuk penggunaan publik: data lokasi/jadwal masih perlu validasi lapangan, dan privasi serta konfigurasi email perlu dituntaskan. Lihat [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Mulai cepat
 
@@ -47,7 +68,7 @@ src/            kode aplikasi
 assets/models/  25 model satwa GLB
 assets/qr/      kartu QR siap cetak
 supabase/       migrasi database, seed, edge function kobi, config CLI
-.github/workflows/  deploy website, deploy Supabase, tes, keep-alive
+.github/workflows/  CI/CD: test, build, and deploy website
 tests/          uji asap + mock supabase-js
 tools/          generator seed, server preview, skrip ekspor/validasi
 docs/           panduan deploy, Supabase, roadmap, blueprint Flutter
